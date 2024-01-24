@@ -22,6 +22,8 @@ Car::Car()
 Car::Car(char const* const manufacturerName, char const* const modelName, PerformanceStats perf, uint8_t numSeats, 
 DoorKind backseatDoorDesign)
 {
+    manufacturer = new char[strlen(o.getManufacturer())+1];
+    model = new char[strlen(o.getModel())+1];
     strcpy(manufacturer, manufacturerName);
     strcpy(model, modelName);
     zeroToSixtyNs = perf.zeroToSixtyNs;
