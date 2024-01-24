@@ -48,13 +48,13 @@ Car::Car(Car const& o)
 
 Car::Car::~Car()
 {
-    delete manufacturer;
+    /*delete manufacturer;
     delete model;
     delete &zeroToSixtyNs;
     delete &headonDragCoeff;
     delete &horsepower;
     delete &backseatDoors;
-    delete &seatCount;
+    delete &seatCount;*/
 }
 
 Car::Car& operator=(Car const& o)
