@@ -46,7 +46,7 @@ Car::Car(Car const& o)
     seatCount = o.getSeatCount();
 }
 
-Car::Car::~Car()
+Car::~Car()
 {
     delete[] manufacturer;
     delete[] model;
