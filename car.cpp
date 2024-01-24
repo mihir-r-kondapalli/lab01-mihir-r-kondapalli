@@ -22,8 +22,8 @@ Car::Car()
 Car::Car(char const* const manufacturerName, char const* const modelName, PerformanceStats perf, uint8_t numSeats, 
 DoorKind backseatDoorDesign)
 {
-    manufacturer = new char[strlen(o.getManufacturer())+1];
-    model = new char[strlen(o.getModel())+1];
+    manufacturer = new char[strlen(manufacturerName)+1];
+    model = new char[strlen(modelName)+1];
     strcpy(manufacturer, manufacturerName);
     strcpy(model, modelName);
     zeroToSixtyNs = perf.zeroToSixtyNs;
@@ -39,13 +39,11 @@ Car::Car(Car const& o)
     model = new char[strlen(o.getModel())+1];
     strcpy(manufacturer, o.manufacturer);
     strcpy(model, o.model);
-    zeroToSixtyNs = o.zeroToSixtyNs;
-    headonDragCoeff = o.headonDragCoeff;
-    horsepower = o.horsepower;
-    backseatDoors = o.backseatDoors;
-    seatCount = o.numSeats;
-
-    return *this;
+    zeroToSixtyNs = o.getStats().zeroToSixtyNs;
+    headonDragCoeff = o.getStats().headonDragCoeff;
+    horsepower = o.getStats().horsepower;
+    backseatDoors = o.getBackseatDoors();
+    seatCount = o.getSeatCount();
 }
 
 Car::Car::~Car()
@@ -54,15 +52,17 @@ Car::Car::~Car()
     delete[] model;
 }
 
-Car::Car& operator=(Car const& o)
+Car& Car::operator=(Car const& o)
 {
     strcpy(manufacturer, o.manufacturer);
     strcpy(model, o.model);
-    zeroToSixtyNs = o.zeroToSixtyNs;
-    headonDragCoeff = o.headonDragCoeff;
-    horsepower = o.horsepower;
-    backseatDoors = o.backseatDoors;
-    seatCount = o.numSeats;
+    zeroToSixtyNs = o.getStats().zeroToSixtyNs;
+    headonDragCoeff = o.getStats().headonDragCoeff;
+    horsepower = o.getStats().horsepower;
+    backseatDoors = o.getBackseatDoors();
+    seatCount = o.getSeatCount();
+
+    return *this;
 }
 
 char const* Car::getManufacturer() const
@@ -77,7 +77,8 @@ char const* Car::getModel() const
 
 PerformanceStats Car::getStats() const
 {
-    return new PerformanceStats(horsepower, zeroToSixtyNs, headonDragCoeff);
+    PerformanceStats* ps = new PerformanceStats(horsepower, zeroToSixtyNs, headonDragCoeff);
+    return *ps;
 }
 
 uint8_t Car::getSeatCount() const
