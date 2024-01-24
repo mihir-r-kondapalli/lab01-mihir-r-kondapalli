@@ -93,11 +93,17 @@ DoorKind Car::getBackseatDoors() const
 
 void Car::manufacturerChange(char const* const newManufacturer)
 {
+    char* temp = manufacturer;
+    manufacturer = char[strlen(newManufacturer)+1];
+    delete temp;
     strcpy(manufacturer, newManufacturer);
 }
 
 void Car::modelNameChange(char const* const newModelName)
 {
+    char* temp = model;
+    model = char[strlen(newModelName)+1];
+    delete temp;
     strcpy(model, newModelName);
 }
 
